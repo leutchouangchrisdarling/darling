@@ -1,14 +1,27 @@
-#ifndef __MY_MATH_LIB_H
-#define __MY_MATH_LIB_H
-
-// Définition d'une fonction de calcul de factorielle.
-unsigned int fact( unsigned int value );
-
-// Définition d'une fonction d'élévation à une puissance données.
-int power( int value, unsigned int pow );
-
-void arrayView();
-
-void switchVar(int *a, int *b);
+#ifndef BIBLIOTHEQUE_H
+#define BIBLIOTHEQUE_H
+//FONTION FACTORIELLE exercice 1
+unsigned int factorielle(unsigned int n);
+//fonction puissance exercice 2
+int puissance(int base, unsigned int exposant);
+//fonction pemutation exercice 3a
+void permuterVariables(int *a, int *b);
+// permet d'afficher les tableaux execercise 3b
+void afficherTableau();
+//exercice 7 : resolution d'une equation du second degre en language c
+//structures de donnees pour gerer toutes les solutions  
+typedef struct {
+    int type_solution;
+    int est_lineaire;
+    int sont_complexes;
+    double solution1;
+    double solution2;
+    double partie_reelle;
+    double partie_imag;
+} SolutionEquation2Degre;
+// fonctions qui permettent de resoudre les equations et d'afficher les solutions dans les differents cas 
+SolutionEquation2Degre resoudreEquation2Degre(double a, double b, double c);
+void afficherSolutionsEquation(SolutionEquation2Degre solutions, double a, double b, double c);
+void resoudreEtAfficherEquation(double a, double b, double c);
 
 #endif

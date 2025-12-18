@@ -1,50 +1,147 @@
 #include "bibliotheque.h"
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 
-#define ARRAY_SIZE 5
-
-// Définition d'une fonction de calcul de factorielle.
-unsigned int fact( unsigned int value ) {
-    unsigned int result = 1;
-
-    while ( value > 1 ) {
-        result *= value;
-        value --;
+// Exercice 1
+unsigned int factorielle(unsigned int n) {
+    if (n == 0 || n == 1) return 1;
+    unsigned int resultat = 1;
+    for (unsigned int i = 2; i <= n; i++) {
+        resultat *= i;
     }
-    
-    return result;
+    return resultat;
 }
 
-// Définition d'une fonction d'élévation à une puissance données.
-int power( int value, unsigned int pow ) {
-    if ( pow == 0 ) return 1;
-    if ( pow == 1 ) return value;
-
-    int accumulator = 1;
-
-    while( pow > 0 ) {
-        accumulator *= value;
-        pow--;
+// Exercice 2
+int puissance(int base, unsigned int exposant) {
+    if (exposant == 0) return 1;
+    int resultat = 1;
+    for (unsigned int i = 0; i < exposant; i++) {
+        resultat *= base;
     }
-    
-    return accumulator;
+    return resultat;
 }
 
-void arrayView() {
-    int array[ ARRAY_SIZE ];
-    array[0] = 1;
-    array[1] = 2;
-    array[2] = 4;
-    array[3] = 8;
-    array[4] = 16;
-
-    for( int i=0; i<ARRAY_SIZE; i++ ) {
-        printf( "array[%d] == %d\n", i, array[i] );
-    }
-}
-
-void switchVar(int *a, int *b) {
+// Exercice 3A
+void permuterVariables(int *a, int *b) {
     int temp = *a;
     *a = *b;
     *b = temp;
+}
+
+// Exercice 3B
+void afficherTableau() {
+    int tableau[5] = {1, 2, 4, 8, 16};
+    for (int i = 0; i < 5; i++) {
+        printf("tableau[%d] = %d\n", i, tableau[i]);
+    }
+}
+
+// Exercice 7 - RESOLUTION D'EQUQTION DU SECOND DEGRES 
+SolutionEquation2Degre resoudreEquation2Degre(double a, double b, double c) {
+    SolutionEquation2Degre solutions = {0};
+    
+    // CAS 1 : Equation lineaire (a = 0)
+    if (a == 0.0) {
+        solutions.est_lineaire = 1;
+        if (b != 0.0) {
+            solutions.type_solution = 1;
+            solutions.solution1 = -c / b;
+        }
+        else if (c != 0.0) {
+            solutions.type_solution = 0;
+        }
+        else {
+            solutions.type_solution = -1;
+        }
+        return solutions;
+    }
+    
+    // CAS 2 : Equation du second degre (a != 0)
+    solutions.est_lineaire = 0;
+    double discriminant = b * b - 4 * a * c;
+    
+    // Discriminant > 0 : deux solutions reelles
+    if (discriminant > 0) {
+        solutions.type_solution = 2;
+        solutions.sont_complexes = 0;
+        double racine_delta = sqrt(discriminant);
+        solutions.solution1 = (-b + racine_delta) / (2 * a);
+        solutions.solution2 = (-b - racine_delta) / (2 * a);
+    }
+    // Discriminant = 0 : solution double
+    else if (discriminant == 0) {
+        solutions.type_solution = 1;
+        solutions.sont_complexes = 0;
+        solutions.solution1 = -b / (2 * a);
+        solutions.solution2 = solutions.solution1;
+    }
+    // Discriminant < 0 : solutions complexes
+    else {
+        solutions.type_solution = 2;
+        solutions.sont_complexes = 1;
+        solutions.partie_reelle = -b / (2 * a);
+        solutions.partie_imag = sqrt(-discriminant) / (2 * a);
+    }
+    
+    return solutions;
+}
+
+void afficherSolutionsEquation(SolutionEquation2Degre solutions, double a, double b, double c) {
+    // Affichage DES EQUATIONS ET DES SOLUTIONS
+    printf("Equation: ");
+    
+    if (a != 0) {
+        if (a == 1.0) printf("x^2 ");
+        else if (a == -1.0) printf("-x^2 ");
+        else printf("%.2fx^2 ", a);
+    }
+    
+    if (b != 0) {
+        if (b > 0 && a != 0) printf("+ ");
+        if (b == 1.0) printf("x ");
+        else if (b == -1.0) printf("-x ");
+        else printf("%.2fx ", b);
+    }
+    
+    if (c != 0) {
+        if (c > 0 && (a != 0 || b != 0)) printf("+ ");
+        printf("%.2f ", c);
+    }
+    
+    printf("= 0\n");
+    
+    if (solutions.est_lineaire) {
+        if (solutions.type_solution == -1) {
+            printf("-> Infinite de solutions\n");
+        }
+        else if (solutions.type_solution == 0) {
+            printf("-> Aucune solution\n");
+        }
+        else {
+            printf("-> Solution: x = %.2f\n", solutions.solution1);
+        }
+    }
+    else {
+        if (solutions.sont_complexes) {
+            printf("-> Solutions complexes:\n");
+            printf("   x1 = %.2f + %.2fi\n", solutions.partie_reelle, solutions.partie_imag);
+            printf("   x2 = %.2f - %.2fi\n", solutions.partie_reelle, solutions.partie_imag);
+        }
+        else if (solutions.type_solution == 1) {
+            printf("-> Solution double: x = %.2f\n", solutions.solution1);
+        }
+        else if (solutions.type_solution == 2) {
+            printf("-> Deux solutions reelles:\n");
+            printf("   x1 = %.2f\n", solutions.solution1);
+            printf("   x2 = %.2f\n", solutions.solution2);
+        }
+    }
+    printf("\n");
+}
+
+void resoudreEtAfficherEquation(double a, double b, double c) {
+    SolutionEquation2Degre solutions = resoudreEquation2Degre(a, b, c);
+    afficherSolutionsEquation(solutions, a, b, c);
 }
