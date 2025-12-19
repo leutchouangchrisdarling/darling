@@ -2,103 +2,137 @@
 #include <stdlib.h>
 #include "bibliotheque.h"
 
-int main(void) {
-    // factorielle , puissance , permutation 
-    printf("PROJET C - Leutchouang Chris Darling - InfoTel3\n\n");
+void menu() {
+    printf("\n          MENU PRINCIPAL\n");
+    printf("-----------------------------------\n");
+    printf("1. Calcul de factorielle (Exo 1)\n");
+    printf("2. Calcul de puissance (Exo 2)\n");
+    printf("3. Permutation de variables (Exo 3a)\n");
+    printf("4. Afficher un tableau (Exo 3b)\n");
+    printf("5. Resolution d'equation du 2nd degre (Exo 7)\n");
+    printf("6. Verifier nombre premier (Exo 12a)\n");
+    printf("7. Calculer distance entre points (Exo 13)\n");
+    printf("0. Quitter\n");
+    printf("-----------------------------------\n");
+    printf("Votre choix : ");
+}
 
-    printf("EXERCICES 1-3\n\n");
+int main() {
+    int choix;
     
-    printf("1. Factorielle:\n");
-    printf("6! = %u\n", factorielle(6));
-    printf("5! = %u\n\n", factorielle(5));
+    printf("\nPROJET C - Leutchouang Chris Darling - InfoTel3\n");
+    printf("Programme interactif de fonctions mathematiques\n");
     
-    printf("2. Puissance:\n");
-    printf("2^3 = %d\n", puissance(2, 3));
-    printf("5^2 = %d\n\n", puissance(5, 2));
-    
-    printf("3. Permutation:\n");
-    int x = 10, y = 20;
-    printf("Avant: x=%d, y=%d\n", x, y);
-    permuterVariables(&x, &y);
-    printf("Apres: x=%d, y=%d\n\n", x, y);
-    
-    // afficher un tableau 
-    printf("4. Tableau:\n");
-    afficherTableau();
-    printf("\n");
-
-    // exercices 7 equations du second degre 
-    printf("EXERCICE 7\n\n");
-    
-    printf("Test 1: x^2 - 3x + 2 = 0\n");
-    resoudreEtAfficherEquation(1.0, -3.0, 2.0);
-    
-    printf("Test 2: x^2 - 4x + 4 = 0\n");
-    resoudreEtAfficherEquation(1.0, -4.0, 4.0);
-    
-    printf("Test 3: x^2 + x + 1 = 0\n");
-    resoudreEtAfficherEquation(1.0, 1.0, 1.0);
-    
-    printf("Test 4: 2x - 4 = 0\n");
-    resoudreEtAfficherEquation(0.0, 2.0, -4.0);
-
-    printf("Test 5: 0 = 0\n");
-    resoudreEtAfficherEquation(0.0, 0.0, 0.0);
-    
-    printf("Test 6: 5 = 0\n");
-    resoudreEtAfficherEquation(0.0, 0.0, 5.0);
-
-    // exercice 12 verification des nombres premiers
-    printf("\nEXERCICE 12a\n\n");
-    
-    // Tests de base
-    printf("Tests de base :\n");
-    unsigned int tests[] = {0, 1, 2, 3, 4, 5, 17, 20, 29, 100};
-    for (int i = 0; i < 10; i++) {
-        printf("%u : %s\n", tests[i], 
-               estNombrePremier(tests[i]) ? "premier" : "non premier");
-    }
-    
-    // Vérification avec plusieurs nombre de votre choix 
-    printf("\nVerification de votre nombre :\n");
-    unsigned int monNombre = 85;
-    printf("Votre nombre : %u\n", monNombre);
-    if (estNombrePremier(monNombre)) {
-        printf("-> %u EST PREMIER\n", monNombre);
-    } else {
-        printf("-> %u N'EST PAS PREMIER\n", monNombre);
-    }
-    printf("\n");
-
-    // exercice 13 structures pour les points dans l'espace et la calcul de leurs distances 
-    printf("EXERCICE 13\n\n");
-    
-    printf("Calcul de distances entre points\n");
-    
-    
-    // Test 1 : Distance simple
-    Point p1 = {0.0, 0.0};
-    Point p2 = {3.0, 4.0};
-    printf("Test 1 : Points (0, 0) et (3, 4)\n");
-    printf("Distance = %.2f (attendu : 5.00)\n\n", distanceEntrePoints(p1, p2));
-    
-    // Test 2 : Points avec coordonnées négatives
-    Point p3 = {-2.0, 1.0};
-    Point p4 = {1.0, 5.0};
-    printf("Test 2 : Points (-2, 1) et (1, 5)\n");
-    printf("Distance = %.2f (attendu : 5.00)\n\n", distanceEntrePoints(p3, p4));
-    
-    // Test 3 : Points avec coordonnées décimales
-    Point p5 = {1.5, 2.5};
-    Point p6 = {4.5, 6.5};
-    printf("Test 3 : Points (1.5, 2.5) et (4.5, 6.5)\n");
-    printf("Distance = %.2f (attendu : 5.00)\n\n", distanceEntrePoints(p5, p6));
-    
-    // Test 4 : Distance nulle (même point)
-    Point p7 = {3.0, 7.0};
-    Point p8 = {3.0, 7.0};
-    printf("Test 4 : Points (3, 7) et (3, 7)\n");
-    printf("Distance = %.2f (attendu : 0.00)\n", distanceEntrePoints(p7, p8));
+    do {
+        menu();
+        scanf("%d", &choix);
+        
+        // Vider le buffer d'entrée
+        while (getchar() != '\n');
+        
+        switch (choix) {
+            case 1: { // Factorielle
+                unsigned int n;
+                printf("\n--- FACTORIELLE ---\n");
+                printf("Entrez un nombre entier positif : ");
+                scanf("%u", &n);
+                printf("Resultat : %u! = %u\n\n", n, factorielle(n));
+                break;
+            }
+            
+            case 2: { // Puissance
+                int base;
+                unsigned int exposant;
+                printf("\n--- PUISSANCE ---\n");
+                printf("Entrez la base (entier) : ");
+                scanf("%d", &base);
+                printf("Entrez l'exposant (entier positif) : ");
+                scanf("%u", &exposant);
+                printf("Resultat : %d^%u = %d\n\n", base, exposant, puissance(base, exposant));
+                break;
+            }
+            
+            case 3: { // Permutation
+                int a, b;
+                printf("\n--- PERMUTATION ---\n");
+                printf("Entrez la premiere valeur : ");
+                scanf("%d", &a);
+                printf("Entrez la deuxieme valeur : ");
+                scanf("%d", &b);
+                printf("Avant permutation : a = %d, b = %d\n", a, b);
+                permuterVariables(&a, &b);
+                printf("Apres permutation : a = %d, b = %d\n\n", a, b);
+                break;
+            }
+            
+            case 4: { // Tableau
+                printf("\n--- TABLEAU ---\n");
+                afficherTableau();
+                printf("\n");
+                break;
+            }
+            
+            case 5: { // Équation du 2nd degré
+                double a, b, c;
+                printf("\n--- EQUATION DU 2ND DEGRE ---\n");
+                printf("Equation de la forme: ax² + bx + c = 0\n");
+                printf("Entrez le coefficient a : ");
+                scanf("%lf", &a);
+                printf("Entrez le coefficient b : ");
+                scanf("%lf", &b);
+                printf("Entrez le coefficient c : ");
+                scanf("%lf", &c);
+                resoudreEtAfficherEquation(a, b, c);
+                break;
+            }
+            
+            case 6: { // Nombre premier
+                unsigned int n;
+                printf("\n--- NOMBRE PREMIER ---\n");
+                printf("Entrez un nombre entier positif : ");
+                scanf("%u", &n);
+                if (estNombrePremier(n)) {
+                    printf("Resultat : %u est un nombre premier.\n\n", n);
+                } else {
+                    printf("Resultat : %u n'est pas un nombre premier.\n\n", n);
+                }
+                break;
+            }
+            
+            case 7: { // Distance entre points
+                Point p1, p2;
+                printf("\n--- DISTANCE ENTRE POINTS ---\n");
+                printf("Point 1 :\n");
+                lirePoint(&p1);
+                printf("Point 2 :\n");
+                lirePoint(&p2);
+                
+                printf("\nResultat :\n");
+                printf("Distance entre ");
+                afficherPoint(p1);
+                printf(" et ");
+                afficherPoint(p2);
+                printf(" = %.2f\n\n", distanceEntrePoints(p1, p2));
+                break;
+            }
+            
+            case 0: {
+                printf("\nAu revoir mr !\n");
+                break;
+            }
+            
+            default: {
+                printf("\nChoix invalide ! Veuillez reessayer.\n");
+                break;
+            }
+        }
+        
+        if (choix != 0) {
+            printf("Appuyez sur Entree pour continuer...");
+            while (getchar() != '\n');
+        }
+        
+    } while (choix != 0);
     
     return EXIT_SUCCESS;
 }
