@@ -172,3 +172,22 @@ int estNombrePremier(unsigned int n) {
     
     return 1;  // n est premier
 }
+
+
+// Exercice 13 - Structure pour les  Point dans le plan  et le calcul des distance
+double distanceEntrePoints(Point p1, Point p2) {
+    double dx = p2.x - p1.x;
+    double dy = p2.y - p1.y;
+    return sqrt(dx * dx + dy * dy);
+}
+
+void lirePoint(Point *p) {
+    printf("Entrez la coordonnee x : ");
+    scanf("%lf", &(p->x));
+    printf("Entrez la coordonnee y : ");
+    scanf("%lf", &(p->y));
+}
+
+void afficherPoint(Point p) {
+    printf("(%g, %g)", p.x, p.y);// pour eviter l'ajout de decimal 
+}
