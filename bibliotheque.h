@@ -24,4 +24,7 @@ SolutionEquation2Degre resoudreEquation2Degre(double a, double b, double c);
 void afficherSolutionsEquation(SolutionEquation2Degre solutions, double a, double b, double c);
 void resoudreEtAfficherEquation(double a, double b, double c);
 
+// Exercice 12a - Vérification nombre premier
+// un peu comme dans le cas du factorielle  int estNombrePremier(unsigned int n)  
+int estNombrePremier(unsigned int n);
 #endif

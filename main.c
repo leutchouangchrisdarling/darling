@@ -23,7 +23,7 @@ int main(void) {
     afficherTableau();
     
     printf("\n========== EXERCICE 7 ==========\n\n");
-    // MR PEUT MODIFIER LES VALEURS ICI POUR TESTER MON  CODE 
+    
     printf("Test 1: x^2 - 3x + 2 = 0\n");
     resoudreEtAfficherEquation(1.0, -3.0, 2.0);
     
@@ -41,6 +41,26 @@ int main(void) {
     
     printf("Test 6: 5 = 0\n");
     resoudreEtAfficherEquation(0.0, 0.0, 5.0);
+    
+    printf("\n========== EXERCICE 12a ==========\n\n");
+    
+    // Tests de base
+    printf("Tests de base :\n");
+    unsigned int tests[] = {0, 1, 2, 3, 4, 5, 17, 20, 29, 100};
+    for (int i = 0; i < 10; i++) {
+        printf("   %u : %s\n", tests[i], 
+               estNombrePremier(tests[i]) ? "premier" : "non premier");
+    }
+    
+    // Vérification avec plusieurs  nombre de votre choix 
+    printf("\n--- Verification de votre nombre ---\n");
+    unsigned int monNombre = 85;  //mr changer le nombre ici pour tester 
+    printf("Votre nombre : %u\n", monNombre);
+    if (estNombrePremier(monNombre)) {
+        printf("   -> %u EST PREMIER\n", monNombre);
+    } else {
+        printf("   -> %u N'EST PAS PREMIER\n", monNombre);
+    }
     
     return EXIT_SUCCESS;
 }

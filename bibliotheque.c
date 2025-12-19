@@ -145,3 +145,30 @@ void resoudreEtAfficherEquation(double a, double b, double c) {
     SolutionEquation2Degre solutions = resoudreEquation2Degre(a, b, c);
     afficherSolutionsEquation(solutions, a, b, c);
 }
+
+// Exercice 12a - Vérification nombre premier
+int estNombrePremier(unsigned int n) {
+    // 0 et 1 ne sont pas premiers
+    if (n <= 1) {
+        return 0;
+    }
+    
+    // 2 est premier
+    if (n == 2) {
+        return 1;
+    }
+    
+    // Les nombres pairs > 2 ne sont pas premiers
+    if (n % 2 == 0) {
+        return 0;
+    }
+    
+    // Vérifions  les divisibilités de 3 à n (on incrémente de 2 pour ne tester que les  chiffrs impairs)
+    for (unsigned int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) {
+            return 0;  // n est divisible par i, donc pas premier
+        }
+    }
+    
+    return 1;  // n est premier
+}
